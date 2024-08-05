@@ -14,8 +14,13 @@ const authRoutes = async (fastify) => {
         const hashedPassword = await bcryptjs_1.default.hash(password, 10);
         const db = (0, database_1.getDb)();
         const collection = db.collection('users');
+        const user = await collection.findOne({ username });
+        if (user) {
+            reply.status(409).send({ message: "User Already Exists" });
+            return;
+        }
         await collection.insertOne({ username, password: hashedPassword });
-        reply.status(200).send({ message: 'User registered successfully' });
+        reply.status(200).send({ message: "User Registered Successfully" });
     });
     // Login route
     fastify.post('/auth/login', async (request, reply) => {
@@ -31,10 +36,10 @@ const authRoutes = async (fastify) => {
         const collection = db.collection('users');
         const user = await collection.findOne({ username });
         if (!user || !(await bcryptjs_1.default.compare(password, user.password))) {
-            return reply.status(401).send({ message: 'Invalid username or password' });
+            reply.status(401).send({ message: 'Invalid username or password' });
+            return;
         }
         token = jsonwebtoken_1.default.sign({ id: user._id, username: user.username }, SECRET, { expiresIn: '1h' });
-        console.log(token);
         reply.status(200).send({ token });
     });
 };

@@ -20,6 +20,9 @@ const taskRoutes = async (fastify) => {
             const tasks = await collection.find({ uid: response.id }).toArray();
             reply.status(200).send({ tasks: tasks.map((task) => ({ ...task, id: task._id })) });
         }
+        else {
+            reply.status(500).send({ message: "Something Went Wrong" });
+        }
     });
     fastify.post('/tasks/addOrUpdate', async (request, reply) => {
         const { task } = request.body;
@@ -41,6 +44,9 @@ const taskRoutes = async (fastify) => {
             }
             reply.status(200).send({ message: 'Task Added Successfully', task: newTask });
         }
+        else {
+            reply.status(500).send({ message: "Something Went Wrong" });
+        }
     });
     fastify.post('/tasks/delete', async (request, reply) => {
         const { id } = request.body;
@@ -54,6 +60,9 @@ const taskRoutes = async (fastify) => {
             const collection = db.collection('tasks');
             await collection.deleteOne({ _id: new mongodb_1.ObjectId(id) });
             reply.status(200).send({ id, message: 'Task Deleted Successfully' });
+        }
+        else {
+            reply.status(500).send({ message: "Something Went Wrong" });
         }
     });
 };
