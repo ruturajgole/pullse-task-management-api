@@ -1,0 +1,33 @@
+{
+  "name": "pullse_task_management_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.1.0",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@fastify/cors": "^9.0.1",
+    "@types/bcrypt": "^5.0.2",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.6",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "fastify": "^4.28.1",
+    "fastify-cookie": "^5.7.0",
+    "fastify-jwt": "^4.2.0",
+    "fastify-mongodb": "^4.2.0",
+    "fastify-plugin": "^4.5.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.5.2"
+  }
+}
