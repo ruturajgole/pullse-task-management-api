@@ -23,11 +23,10 @@ const authRoutes: FastifyPluginAsync = async (fastify) => {
     const authorization = request.headers["authorization"];
     let token = authorization?.split(' ')[1];
 
-    if(token && jwt.verify(token, SECRET)) {
-      reply.status(200).send({ token, message: "Logged In" });
-      return;
-    } else {
-      reply.status(500).send({ message: "Session expired. Please Log in again."});
+    if(token) {
+      return jwt.verify(token, SECRET)
+      ? reply.status(200).send({ token, message: "Logged In" })
+      : reply.status(500).send({ message: "Session Expired. Please Log In Again"});
     }
 
     const { username, password } = request.body as { username: string; password: string };
