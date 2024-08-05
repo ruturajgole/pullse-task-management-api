@@ -45,7 +45,7 @@ const taskRoutes: FastifyPluginAsync = async (fastify) => {
     if(response){
       const collection = db.collection('tasks');
       if(task.id){
-        await collection.updateOne({_id: new ObjectId(task.id)}, task);
+        await collection.updateOne({_id: new ObjectId(task.id)}, {$set: {task}});
         newTask = task;
       } else {
         newTask = await collection.insertOne({...task, uid: response.id});

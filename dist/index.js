@@ -11,14 +11,14 @@ const task_1 = __importDefault(require("./routes/task"));
 const fastify = (0, fastify_1.default)({
     logger: true
 });
-fastify.register(cors_1.default, { origin: "http://localhost:3001" });
+fastify.register(cors_1.default, { origin: "http://localhost:3000" });
 fastify.register(auth_1.default);
 fastify.register(task_1.default);
 const start = async () => {
     try {
         await (0, database_1.connectToDatabase)();
-        await fastify.listen({ port: 3000 });
-        console.log('Server is running at http://localhost:3000');
+        await fastify.listen({ port: 3001 });
+        console.log('Server is running at http://localhost:3001');
     }
     catch (err) {
         fastify.log.error(err);

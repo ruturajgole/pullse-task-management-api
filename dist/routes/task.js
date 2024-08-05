@@ -33,7 +33,7 @@ const taskRoutes = async (fastify) => {
         if (response) {
             const collection = db.collection('tasks');
             if (task.id) {
-                await collection.updateOne({ _id: new mongodb_1.ObjectId(task.id) }, task);
+                await collection.updateOne({ _id: new mongodb_1.ObjectId(task.id) }, { $set: { task } });
                 newTask = task;
             }
             else {

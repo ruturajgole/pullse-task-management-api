@@ -21,9 +21,10 @@ const authRoutes = async (fastify) => {
     fastify.post('/auth/login', async (request, reply) => {
         const authorization = request.headers["authorization"];
         let token = authorization?.split(' ')[1];
-        if (token && jsonwebtoken_1.default.verify(token, SECRET)) {
-            reply.status(200).send({ token, message: "Logged In" });
-            return;
+        if (token) {
+            return jsonwebtoken_1.default.verify(token, SECRET)
+                ? reply.status(200).send({ token, message: "Logged In" })
+                : reply.status(500).send({ message: "Session Expired. Please Log In Again" });
         }
         const { username, password } = request.body;
         const db = (0, database_1.getDb)();
